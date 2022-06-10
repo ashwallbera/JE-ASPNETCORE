@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "575849cf-ca5e-48bf-9769-4f27fd6b7c32": {
+      "ProjectGuid": "575849cf-ca5e-48bf-9769-4f27fd6b7c32",
+      "DisplayName": "JEAspNetCore",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
