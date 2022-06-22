@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Firebase.Database;
+using Firebase.Database.Query;
+using JEAspNetCore.Model;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,6 +11,19 @@ namespace JEAspNetCore.Controllers
     [ApiController]
     public class AttendanceController : ControllerBase
     {
+        string AuthSecret = "A4mpOGwFLos77X7uJMttMaeBPqURI1vKdQ2iwWBK";
+        string BasePath = "https://jadocenterprises-default-rtdb.asia-southeast1.firebasedatabase.app";
+        private readonly FirebaseClient firebaseClient;
+
+        public AttendanceController()
+        {
+            firebaseClient = new FirebaseClient(
+              BasePath,
+              new FirebaseOptions
+              {
+                  AuthTokenAsyncFactory = () => Task.FromResult(AuthSecret)
+              });
+        }
         // GET: api/<AttendanceController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -24,8 +40,20 @@ namespace JEAspNetCore.Controllers
 
         // POST api/<AttendanceController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<IEnumerable<AttendanceModel>>> CreateAttendance(AttendanceModel model)
         {
+            try
+            {
+                model.datecreated = DateTime.UtcNow.ToString();
+                var result = await firebaseClient
+                    .Child("attendance").
+                    PostAsync(model);
+                return Ok(result);
+            }catch (Exception ex)
+            {
+                return Ok(ex.StackTrace);
+            }
+           
         }
 
         // PUT api/<AttendanceController>/5
