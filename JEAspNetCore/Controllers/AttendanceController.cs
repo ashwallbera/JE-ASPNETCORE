@@ -44,7 +44,7 @@ namespace JEAspNetCore.Controllers
         {
             try
             {
-                model.datecreated = DateTime.UtcNow.ToString();
+                model.datecreated = DateTime.UtcNow.ToShortDateString();
                 var result = await firebaseClient
                     .Child("attendance").
                     PostAsync(model);
