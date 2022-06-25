@@ -27,6 +27,9 @@ namespace JEAspNetCore.Model
         public string? role { get; set; }
 
         [DataMember]
+        public string? position { get; set; }
+
+        [DataMember]
         public string isDeleted { get; set; }
 
     }
