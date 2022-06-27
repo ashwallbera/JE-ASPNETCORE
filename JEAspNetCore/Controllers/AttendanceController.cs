@@ -45,6 +45,30 @@ namespace JEAspNetCore.Controllers
             try
             {
                 model.datecreated = DateTime.UtcNow.ToShortDateString();
+                //Check if the userid and date are existing to database && project
+                //Return Ok response
+                //else if the user and date are not existing to database
+                var getAttendance = await firebaseClient
+                   .Child("attendance")
+                   .OnceAsync<AttendanceModel>();
+
+                List<AttendanceModel> attendanceModels = new List<AttendanceModel>();
+                foreach(var attendanceModel in getAttendance.ToList())
+                {
+                    AttendanceModel data = (AttendanceModel)attendanceModel.Object;
+                    if (data.id.Equals(model.id)
+                        && data.projectid.Equals(model.projectid)
+                        && data.userid.Equals(model.userid)
+                        && data.datecreated.Equals(model.datecreated))
+                    {
+                        return BadRequest("Already time in");
+                    }
+                  /*  attendanceModels.Add((AttendanceModel)attendanceModel.Object);
+                    Console.WriteLine(((AttendanceModel)attendanceModel.Object));*/
+
+                }
+               
+                model.timeIn = DateTime.UtcNow.ToShortTimeString();
                 var result = await firebaseClient
                     .Child("attendance").
                     PostAsync(model);
