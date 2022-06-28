@@ -26,9 +26,25 @@ namespace JEAspNetCore.Controllers
         }
         // GET: api/<AttendanceController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<AttendanceModel>>> getAttendance()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                var getAttendance = await firebaseClient
+                 .Child("attendance")
+                 .OnceAsync<AttendanceModel>();
+                List<AttendanceModel> attendanceModels = new List<AttendanceModel>();
+                foreach (var attendanceModel in getAttendance.ToList())
+                {
+                   
+                     attendanceModels.Add((AttendanceModel)attendanceModel.Object);
+   
+                }
+                return Ok(attendanceModels);
+            }catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // GET api/<AttendanceController>/5
