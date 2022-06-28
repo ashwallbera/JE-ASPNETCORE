@@ -26,6 +26,34 @@ namespace JEAspNetCore.Controllers
                   AuthTokenAsyncFactory = () => Task.FromResult(AuthSecret)
               });
         }
+
+        //GET: verifypassword
+        [HttpPost("{id}")]
+        public async Task<ActionResult<IEnumerable<UserModel>>> verifyUser(UserModel model)
+        {
+            try
+            {
+               
+                var result = await firebaseClient
+                  .Child("users")
+                  .OnceAsync<UserModel>();
+
+                foreach (var data in result)
+                {
+                    if (data.Object.id.Equals(model.id))
+                    {
+                        return Accepted(data.Object);
+                    }
+                }
+
+                return NotFound(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.StackTrace);
+            }
+        }
+
         // GET: api/<UserController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserModel>>> Get()
@@ -49,6 +77,7 @@ namespace JEAspNetCore.Controllers
         {
             try
             {
+                value.datecreated = DateTime.UtcNow.ToShortDateString();
                 value.id = Guid.NewGuid().ToString();
                 //Check if the username exist
                 var getUsers = await firebaseClient
