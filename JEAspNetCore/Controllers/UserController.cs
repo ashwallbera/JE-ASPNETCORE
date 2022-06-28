@@ -49,7 +49,23 @@ namespace JEAspNetCore.Controllers
         {
             try
             {
+                value.id = Guid.NewGuid().ToString();
+                //Check if the username exist
+                var getUsers = await firebaseClient
+                 .Child("users")
+                 .OnceAsync<UserModel>();
+               
+                foreach (var userModel in getUsers.ToList())
+                {
+                    UserModel user = ((UserModel)userModel.Object);
+                    if (user.username.Equals(value.username))
+                    {
+                        return BadRequest("USER ALREADY EXIST!");
+                    }
 
+                }
+
+                // If request username is not existing in db
                 var result = await firebaseClient
                     .Child("users")
                     .PostAsync(value);
