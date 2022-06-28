@@ -30,6 +30,9 @@ namespace JEAspNetCore.Model
         public string? position { get; set; }
 
         [DataMember]
+        public string? datecreated { get; set; }
+
+        [DataMember]
         public string isDeleted { get; set; }
 
     }
