@@ -1,0 +1,17 @@
+D:\Documents\Website Development\JE-ASPNETCORE\JEAspNetCore\obj\Release\net6.0\PubTmp\Out\JEAspNetCore.exe
+D:\Documents\Website Development\JE-ASPNETCORE\JEAspNetCore\obj\Release\net6.0\PubTmp\Out\appsettings.Development.json
+D:\Documents\Website Development\JE-ASPNETCORE\JEAspNetCore\obj\Release\net6.0\PubTmp\Out\appsettings.json
+D:\Documents\Website Development\JE-ASPNETCORE\JEAspNetCore\obj\Release\net6.0\PubTmp\Out\JEAspNetCore.dll
+D:\Documents\Website Development\JE-ASPNETCORE\JEAspNetCore\obj\Release\net6.0\PubTmp\Out\JEAspNetCore.deps.json
+D:\Documents\Website Development\JE-ASPNETCORE\JEAspNetCore\obj\Release\net6.0\PubTmp\Out\JEAspNetCore.runtimeconfig.json
+D:\Documents\Website Development\JE-ASPNETCORE\JEAspNetCore\obj\Release\net6.0\PubTmp\Out\JEAspNetCore.pdb
+D:\Documents\Website Development\JE-ASPNETCORE\JEAspNetCore\obj\Release\net6.0\PubTmp\Out\CliWrap.dll
+D:\Documents\Website Development\JE-ASPNETCORE\JEAspNetCore\obj\Release\net6.0\PubTmp\Out\Firebase.dll
+D:\Documents\Website Development\JE-ASPNETCORE\JEAspNetCore\obj\Release\net6.0\PubTmp\Out\LiteDB.dll
+D:\Documents\Website Development\JE-ASPNETCORE\JEAspNetCore\obj\Release\net6.0\PubTmp\Out\Microsoft.OpenApi.dll
+D:\Documents\Website Development\JE-ASPNETCORE\JEAspNetCore\obj\Release\net6.0\PubTmp\Out\Newtonsoft.Json.dll
+D:\Documents\Website Development\JE-ASPNETCORE\JEAspNetCore\obj\Release\net6.0\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
+D:\Documents\Website Development\JE-ASPNETCORE\JEAspNetCore\obj\Release\net6.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Documents\Website Development\JE-ASPNETCORE\JEAspNetCore\obj\Release\net6.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\Documents\Website Development\JE-ASPNETCORE\JEAspNetCore\obj\Release\net6.0\PubTmp\Out\System.Reactive.dll
+D:\Documents\Website Development\JE-ASPNETCORE\JEAspNetCore\obj\Release\net6.0\PubTmp\Out\System.Runtime.InteropServices.WindowsRuntime.dll
