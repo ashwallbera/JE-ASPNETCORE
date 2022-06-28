@@ -26,9 +26,26 @@ namespace JEAspNetCore.Controllers
         }
         // GET: api/<ProjectController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<ProjectModel>>> getProjects()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                var getProjects = await firebaseClient
+                 .Child("project")
+                 .OnceAsync<ProjectModel>();
+
+                List<ProjectModel> projectModels = new List<ProjectModel>();
+                foreach (var project in getProjects)
+                {
+                    projectModels.Add((ProjectModel)project.Object);
+                }
+
+                return Ok(projectModels);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.StackTrace);
+            }
         }
 
         // GET api/<ProjectController>/5
