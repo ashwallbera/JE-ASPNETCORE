@@ -119,32 +119,20 @@ namespace JEAspNetCore.Controllers
 
                 if (getAttendance != null)
                 {
-                    getAttendance.Object.timeOut = DateTime.UtcNow.ToShortTimeString();
-                    await firebaseClient
-                        .Child("attendance")
-                        .Child(getAttendance.Key)
-                        .PutAsync(getAttendance.Object);
-                }
-              /*  List<AttendanceModel> attendanceModels = new List<AttendanceModel>();
-                foreach (var attendanceModel in getAttendance.ToList())
-                {
-                    AttendanceModel data = (AttendanceModel)attendanceModel.Object;
-                    if (data.id.Equals(model.id)
-                        && data.projectid.Equals(model.projectid)
-                        && data.userid.Equals(model.userid)
-                        && data.datecreated.Equals(model.datecreated))
+                    if (getAttendance.Object.timeOut.ToString().Length == 0)
                     {
-                        return BadRequest("Alrady time in");
+                        getAttendance.Object.timeOut = DateTime.UtcNow.ToShortTimeString();
+                        await firebaseClient
+                            .Child("attendance")
+                            .Child(getAttendance.Key)
+                            .PutAsync(getAttendance.Object);
                     }
-                    *//*  attendanceModels.Add((AttendanceModel)attendanceModel.Object);
-                      Console.WriteLine(((AttendanceModel)attendanceModel.Object));*//*
-
-                }*/
-                /*var result = await firebaseClient
-                    .Child("attendance").
-                    PostAsync(model);*/
-               
-                   
+                    else
+                    {
+                        return BadRequest("Already timeout for this day");
+                    }
+                    
+                }
 
                 return Ok(getAttendance);
             }
