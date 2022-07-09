@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JEAspNetCore.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
     public class UserController : ControllerBase
     {
