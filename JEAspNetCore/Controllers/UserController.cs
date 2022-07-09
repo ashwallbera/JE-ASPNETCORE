@@ -59,9 +59,15 @@ namespace JEAspNetCore.Controllers
         public async Task<ActionResult<IEnumerable<UserModel>>> Get()
         {
             var result = await firebaseClient
-                    .Child("users")
-                    .OnceAsync<UserModel>();
-            return Ok(result);
+                   .Child("users")
+                  .OnceAsync<UserModel>();
+
+            List<UserModel> userModels = new List<UserModel>();
+            foreach (var userModel in result)
+            {
+                userModels.Add((UserModel)userModel.Object);
+            }
+            return Ok(userModels);
         }
 
         // GET api/<UserController>/5
