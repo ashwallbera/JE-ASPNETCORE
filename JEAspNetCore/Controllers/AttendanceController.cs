@@ -60,8 +60,9 @@ namespace JEAspNetCore.Controllers
         {
             try
             {
+                var utc = DateTime.UtcNow.AddHours(8);
                
-                model.datecreated = DateTime.UtcNow.ToShortDateString();
+                model.datecreated = utc.ToShortDateString();
                 //Check if the userid and date are existing to database && project
                 //Return Ok response
                 //else if the user and date are not existing to database
@@ -87,7 +88,7 @@ namespace JEAspNetCore.Controllers
 
                model.id = Guid.NewGuid().ToString();
 
-               model.timeIn = DateTime.UtcNow.ToShortTimeString();
+               model.timeIn = utc.ToShortTimeString();
                 var result = await firebaseClient
                     .Child("attendance").
                     PostAsync(model);
