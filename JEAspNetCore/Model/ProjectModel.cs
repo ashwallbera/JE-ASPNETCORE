@@ -14,5 +14,7 @@ namespace JEAspNetCore.Model
         public string? location { get; set; }
         [DataMember]
         public string? isFinished { get; set; }
+        [DataMember]
+        public List<string>? assignProjects { get; set; }
     }
 }

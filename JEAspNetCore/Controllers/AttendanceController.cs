@@ -1,8 +1,9 @@
 ﻿using Firebase.Database;
 using Firebase.Database.Query;
 using JEAspNetCore.Model;
+using JEAspNetCore.User.Hubs;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.AspNetCore.SignalR;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace JEAspNetCore.Controllers
@@ -14,9 +15,10 @@ namespace JEAspNetCore.Controllers
         string AuthSecret = "A4mpOGwFLos77X7uJMttMaeBPqURI1vKdQ2iwWBK";
         string BasePath = "https://jadocenterprises-default-rtdb.asia-southeast1.firebasedatabase.app";
         private readonly FirebaseClient firebaseClient;
-
-        public AttendanceController()
+        readonly IHubContext<UserHub> _hubContext;
+        public AttendanceController(IHubContext<UserHub> _hubContext)
         {
+            this._hubContext = _hubContext; 
             firebaseClient = new FirebaseClient(
               BasePath,
               new FirebaseOptions
@@ -61,6 +63,7 @@ namespace JEAspNetCore.Controllers
             try
             {
                 var utc = DateTime.UtcNow.AddHours(8);
+                model.timeOut = "";
                
                 model.datecreated = utc.ToShortDateString();
                 //Check if the userid and date are existing to database && project
@@ -74,8 +77,7 @@ namespace JEAspNetCore.Controllers
                 foreach(var attendanceModel in getAttendance.ToList())
                 {
                     AttendanceModel data = (AttendanceModel)attendanceModel.Object;
-                    if (data.id.Equals(model.id)
-                        && data.projectid.Equals(model.projectid)
+                    if (data.projectid.Equals(model.projectid)
                         && data.userid.Equals(model.userid)
                         && data.datecreated.Equals(model.datecreated))
                     {
@@ -86,12 +88,17 @@ namespace JEAspNetCore.Controllers
 
                 }
 
+              
+              
+
+
                model.id = Guid.NewGuid().ToString();
 
                model.timeIn = utc.ToShortTimeString();
                 var result = await firebaseClient
                     .Child("attendance").
                     PostAsync(model);
+              
                 return Ok(result);
             }catch (Exception ex)
             {
@@ -127,6 +134,7 @@ namespace JEAspNetCore.Controllers
                             .Child("attendance")
                             .Child(getAttendance.Key)
                             .PutAsync(getAttendance.Object);
+                        return Ok(getAttendance);
                     }
                     else
                     {

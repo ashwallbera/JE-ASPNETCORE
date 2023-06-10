@@ -61,6 +61,7 @@ namespace JEAspNetCore.Controllers
         {
             try
             {
+                value.id = Guid.NewGuid().ToString();
 
                 var result = await firebaseClient
                     .Child("project")

@@ -3,6 +3,7 @@
 using Firebase.Database;
 using Firebase.Database.Query;
 using JEAspNetCore.Model;
+using JEAspNetCore.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -17,8 +18,11 @@ namespace JEAspNetCore.Controllers
         string BasePath = "https://jadocenterprises-default-rtdb.asia-southeast1.firebasedatabase.app";
         private readonly FirebaseClient firebaseClient;
 
+        private AttendanceRepository attendanceRepository;
+
         public UserController()
         {
+            this.attendanceRepository = new AttendanceRepository();
             firebaseClient = new FirebaseClient(
               BasePath,
               new FirebaseOptions
@@ -31,7 +35,16 @@ namespace JEAspNetCore.Controllers
         [HttpPost("{id}")]
         public async Task<ActionResult<IEnumerable<UserModel>>> verifyUser(UserModel model)
         {
-            try
+            bool isExist = await this.attendanceRepository.isUserExist(model);
+            if (isExist)
+            {
+                return Ok(model);
+            }
+            else
+            {
+                return NotFound(model);
+            }
+            /*try
             {
                
                 var result = await firebaseClient
@@ -51,23 +64,15 @@ namespace JEAspNetCore.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.StackTrace);
-            }
+            }*/
         }
 
         // GET: api/<UserController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserModel>>> Get()
         {
-            var result = await firebaseClient
-                   .Child("users")
-                  .OnceAsync<UserModel>();
-
-            List<UserModel> userModels = new List<UserModel>();
-            foreach (var userModel in result)
-            {
-                userModels.Add((UserModel)userModel.Object);
-            }
-            return Ok(userModels);
+            var users = await this.attendanceRepository.getUsers();
+            return Ok(users);
         }
 
         // GET api/<UserController>/5
