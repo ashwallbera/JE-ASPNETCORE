@@ -88,6 +88,7 @@ namespace JEAspNetCore.Controllers
         {
             try
             {
+                value.isDeleted = false;
                 value.datecreated = DateTime.UtcNow.ToShortDateString();
                 value.id = Guid.NewGuid().ToString();
                 //Check if the username exist

@@ -33,7 +33,7 @@ namespace JEAspNetCore.Model
         public string? datecreated { get; set; }
 
         [DataMember]
-        public string isDeleted { get; set; }
+        public bool isDeleted { get; set; }
 
     }
 }
